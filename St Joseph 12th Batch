@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Goodbye, but Never Forgotten! | Class 12th Farewell</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    /* Reset */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Segoe UI', 'Arial', sans-serif;
+      min-height: 100vh;
+      background: linear-gradient(120deg, #a18fff, #ffb347 60%, #ff758c 100%);
+      animation: gradientMove 16s ease-in-out infinite alternate;
+      color: #222;
+      overflow-x: hidden;
+    }
+
+    @keyframes gradientMove {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 100% 50%; }
+    }
+
+    .confetti {
+      position: fixed;
+      width: 100%;
+      height: 100vh;
+      left: 0;
+      top: 0;
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    .container {
+      position: relative;
+      text-align: center;
+      padding-top: 100px;
+      z-index: 20;
+    }
+
+    .hero-title {
+      font-size: 3.5rem;
+      font-weight: 800;
+      background: linear-gradient(90deg, #6846e3, #fe77a8);
+      color: transparent;
+      background-clip: text;
+      -webkit-background-clip: text;
+      margin-bottom: 24px;
+    }
+
+    .hero-subtitle {
+      font-size: 1.7rem;
+      color: #292c3a;
+      margin-bottom: 20px;
+    }
+
+    .hero-art {
+      width: 320px;
+      margin: 30px auto;
+      display: block;
+      filter: drop-shadow(2px 8px 14px rgba(90,14,140,0.16));
+    }
+
+    .cta-btn {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #fff;
+      background: linear-gradient(90deg, #ff6a6a, #7ed6ff);
+      border: none;
+      border-radius: 30px;
+      padding: 18px 40px;
+      cursor: pointer;
+      margin-top: 25px;
+      box-shadow: 0 2px 16px rgba(255, 183, 197, 0.3);
+      transition: transform 0.14s, box-shadow 0.16s;
+    }
+
+    .cta-btn:hover {
+      transform: scale(1.07);
+      box-shadow: 0 6px 32px 0 #ed64a6, 0 2px 20px 0 #75c4f7;
+    }
+
+    @media (max-width:600px) {
+      .hero-title { font-size: 2.2rem; }
+      .hero-subtitle { font-size: 1.1rem; }
+      .hero-art { width: 90vw; }
+      .container { padding-top: 60px; }
+    }
+
+    /* Optional: fade-in animation */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(40px);
+      animation: fadeInAnim 1.6s ease forwards;
+    }
+    @keyframes fadeInAnim {
+      to { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Animated Confetti Canvas -->
+  <canvas class="confetti"></canvas>
+
+  <!-- Optional background music -->
+  <audio id="bgm" src="https://cdn.pixabay.com/audio/2023/03/08/audio_12ef554223.mp3" autoplay loop volume="0.34"></audio>
+  <script>
+    // Ensure background music starts only when user interaction.
+    document.addEventListener('click', function() {
+      document.getElementById('bgm').muted = false;
+    }, { once: true });
+  </script>
+  
+  <div class="container fade-in">
+    <div class="hero-title">Goodbye, but Never Forgotten!</div>
+    <div class="hero-subtitle">Class 12th | Batch 2024-25<br>Farewell Celebration</div>
+    <!-- Simple illustration: you can replace with your own SVG or image -->
+    <svg class="hero-art" viewBox="0 0 400 260" fill="none">
+      <ellipse cx="200" cy="200" rx="140" ry="35" fill="#f0f0fb"/>
+      <path d="M85,170 Q120,140 145,180 Q185,130 230,180 Q245,150 315,170 Q300,190 200,220 Q100,190 85,170Z" fill="#ffe0e8"/>
+      <circle cx="110" cy="110" r="38" fill="#7ed6ff"/>
+      <circle cx="190" cy="88" r="44" fill="#ffe55c"/>
+      <circle cx="290" cy="125" r="34" fill="#fd89b8"/>
+      <ellipse cx="170" cy="145" rx="27" ry="11" fill="#fff"/>
+      <ellipse cx="240" cy="145" rx="19" ry="7" fill="#fff"/>
+    </svg>
+    <br>
+    <button class="cta-btn">Book Your Farewell Spot 🎉</button>
+  </div>
+  
+  <script>
+    // Confetti Animation
+    const canvas = document.querySelector('.confetti');
+    const ctx = canvas.getContext('2d');
+    let confettiPieces = [];
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+    function createConfettiPiece() {
+      const colors = ['#ffb347','#ff758c','#8fd3fe','#a18fff','#ffee93','#abecd6','#fd89b8'];
+      return {
+        x: Math.random() * canvas.width,
+        y: Math.random() * -30,
+        r: Math.random() * 7 + 3,
+        color: colors[Math.floor(Math.random() * colors.length)],
+        d: Math.random() * 2 + 1,
+        tilt: Math.random() * 12 - 6,
+        tiltAngle: Math.random() * Math.PI,
+        tiltAngleIncremental: Math.random() * .07 + .01
+      }
+    }
+    for(let i=0; i<110; i++) confettiPieces.push(createConfettiPiece());
+    function drawConfettiPiece(c) {
+      ctx.beginPath();
+      ctx.lineWidth = c.r;
+      ctx.strokeStyle = c.color;
+      ctx.moveTo(c.x + c.tilt + (c.r/3), c.y);
+      ctx.lineTo(c.x + c.tilt, c.y + c.r + c.d);
+      ctx.stroke();
+    }
+    function animateConfetti() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for(let i=0; i<confettiPieces.length; i++) {
+        let c = confettiPieces[i];
+        drawConfettiPiece(c);
+        c.y += c.d;
+        c.x += Math.sin(c.tiltAngle);
+        c.tiltAngle += c.tiltAngleIncremental;
+        c.tilt = Math.sin(c.tiltAngle) * 14;
+        if(c.x > canvas.width + 20 || c.x < -20 || c.y > canvas.height) {
+          confettiPieces[i] = createConfettiPiece();
+          confettiPieces[i].x = Math.random() * canvas.width;
+          confettiPieces[i].y = -20;
+        }
+      }
+      requestAnimationFrame(animateConfetti);
+    }
+    animateConfetti();
+  </script>
+</body>
+</html>
